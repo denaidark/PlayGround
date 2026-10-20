@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#05070d" />
+    <title>Rocket League 3D — Neon Car Soccer</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23050b16'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%2324a6ff' stroke-width='5'/%3E%3Cpath d='M32 13v38M13 32h38' stroke='%23ff7b24' stroke-width='2'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene"></canvas>
+
+      <div class="vignette"></div>
+      <div class="scanlines"></div>
+
+      <header id="scoreboard" class="scoreboard">
+        <div class="team team-blue">
+          <span class="team-tag">BLUE</span>
+          <span id="score-blue" class="score">0</span>
+        </div>
+        <div class="clock-wrap">
+          <div id="clock" class="clock">2:00</div>
+          <div id="clock-label" class="clock-label">MATCH</div>
+        </div>
+        <div class="team team-orange">
+          <span id="score-orange" class="score">0</span>
+          <span class="team-tag">ORANGE</span>
+        </div>
+      </header>
+
+      <div id="boost-hud" class="boost-hud">
+        <div class="boost-ring">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="48"></circle>
+            <circle id="boost-arc" class="ring-fill" cx="60" cy="60" r="48"></circle>
+          </svg>
+          <div class="boost-value"><span id="boost-value">100</span><small>BOOST</small></div>
+        </div>
+      </div>
+
+      <div id="speed-hud" class="speed-hud">
+        <div class="speed-value"><span id="speed-value">0</span><small>KM/H</small></div>
+        <div class="speed-bar"><i id="speed-fill"></i></div>
+      </div>
+
+      <div id="ball-cam" class="ball-cam hidden">BALL CAM <span>ON</span></div>
+
+      <div id="announce" class="announce">
+        <div id="announce-main" class="announce-main"></div>
+        <div id="announce-sub" class="announce-sub"></div>
+      </div>
+
+      <div id="hint" class="hint">
+        <span><b>WASD</b> drive</span>
+        <span><b>SPACE</b> jump</span>
+        <span><b>SHIFT</b> boost</span>
+        <span><b>C</b> camera</span>
+        <span><b>ESC</b> pause</span>
+      </div>
+
+      <div id="start-screen" class="overlay start-screen">
+        <div class="logo-wrap">
+          <div class="logo-top">NEON CAR SOCCER</div>
+          <h1 class="logo">ROCKET<span>LEAGUE</span></h1>
+          <div class="logo-3d">3D</div>
+        </div>
+        <p class="tagline">Two cars. One ball. Zero brakes.</p>
+        <button id="play-button" class="play-button" type="button" aria-label="Play">
+          <span>PLAY MATCH</span>
+          <i></i>
+        </button>
+        <div class="control-grid">
+          <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><em>Drive</em></div>
+          <div><kbd>SPACE</kbd><em>Jump / flip</em></div>
+          <div><kbd>SHIFT</kbd><em>Boost</em></div>
+          <div><kbd>C</kbd><em>Ball cam</em></div>
+        </div>
+        <div class="start-footer">First to the top of the clock wins • 2:00</div>
+      </div>
+
+      <div id="pause-screen" class="overlay pause-screen hidden">
+        <h2 class="menu-title">PAUSED</h2>
+        <button id="resume-button" class="play-button small" type="button"><span>RESUME</span><i></i></button>
+        <button id="restart-button" class="ghost-button" type="button">RESTART MATCH</button>
+      </div>
+
+      <div id="end-screen" class="overlay end-screen hidden">
+        <div id="end-kicker" class="end-kicker">MATCH COMPLETE</div>
+        <h2 id="end-title" class="menu-title">BLUE WINS</h2>
+        <div id="end-score" class="end-score">0 — 0</div>
+        <button id="again-button" class="play-button" type="button"><span>PLAY AGAIN</span><i></i></button>
+        <div class="start-footer">Change the momentum. Own the arena.</div>
+      </div>
+
+      <div id="touch-controls" class="touch-controls" aria-hidden="true">
+        <div class="touch-steer">
+          <button type="button" class="touch-btn steer" data-key="KeyA">&#9664;</button>
+          <button type="button" class="touch-btn steer" data-key="KeyD">&#9654;</button>
+        </div>
+        <div class="touch-actions">
+          <button type="button" class="touch-btn small" data-key="ShiftLeft">BOOST</button>
+          <button type="button" class="touch-btn gas" data-key="KeyW">GAS</button>
+          <button type="button" class="touch-btn small" data-key="Space">JUMP</button>
+        </div>
+      </div>
+
+      <div id="loading" class="loading">
+        <div class="loading-mark"></div>
+        <div>FUELING ROCKETS</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
